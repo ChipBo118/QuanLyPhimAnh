@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Animation cho hiệu ứng trượt ra từ trái sang phải -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Hiệu ứng di chuyển ngang -->
+    <translate
+        android:duration="300"    <!-- Thời gian thực hiện animation: 300ms -->
+        android:fromXDelta="0%"   <!-- Bắt đầu từ vị trí 0% (vị trí gốc) -->
+        android:toXDelta="-100%" /> <!-- Kết thúc tại vị trí -100% bên trái màn hình -->
+    
+    <!-- Hiệu ứng mờ dần -->
+    <alpha
+        android:duration="300"    <!-- Thời gian thực hiện animation: 300ms -->
+        android:fromAlpha="1.0"   <!-- Bắt đầu với độ trong suốt 100% -->
+        android:toAlpha="0.0" />  <!-- Kết thúc với độ trong suốt 0% -->
+</set> 
