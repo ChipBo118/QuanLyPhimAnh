@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quanlyphimdienanh.adapter.MovieAdapter;
 import com.example.quanlyphimdienanh.model.Movie;
 import com.example.quanlyphimdienanh.model.MovieGenre;
+import com.example.quanlyphimdienanh.utils.MovieManager;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,6 +36,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
     private SearchView searchView;            // Ô tìm kiếm
     private ChipGroup genreChipGroup;         // Nhóm các chip thể loại phim
     private FloatingActionButton fabAddMovie; // Nút thêm phim mới
+    private MovieManager movieManager;
 
     private final ActivityResultLauncher<Intent> addMovieLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -42,9 +44,10 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Movie newMovie = result.getData().getParcelableExtra("new_movie");
                     if (newMovie != null) {
-                        // Thêm phim mới vào đầu danh sách
-                        allMovies.add(0, newMovie);
-                        // Cập nhật RecyclerView
+                        // Lưu phim mới
+                        movieManager.addMovie(newMovie);
+                        // Cập nhật danh sách phim
+                        allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
                         // Hiển thị thông báo
                         Toast.makeText(this, "Đã thêm phim mới", Toast.LENGTH_SHORT).show();
@@ -60,7 +63,8 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                     Movie updatedMovie = result.getData().getParcelableExtra(EditMovieActivity.EXTRA_MOVIE);
                     int position = result.getData().getIntExtra(EditMovieActivity.EXTRA_POSITION, -1);
                     if (updatedMovie != null && position != -1) {
-                        allMovies.set(position, updatedMovie);
+                        movieManager.updateMovie(position, updatedMovie);
+                        allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
                         Toast.makeText(this, "Đã cập nhật phim", Toast.LENGTH_SHORT).show();
                     }
@@ -68,7 +72,8 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                     // Xóa phim
                     int position = result.getData().getIntExtra(EditMovieActivity.EXTRA_POSITION, -1);
                     if (position != -1) {
-                        allMovies.remove(position);
+                        movieManager.deleteMovie(position);
+                        allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
                         Toast.makeText(this, "Đã xóa phim", Toast.LENGTH_SHORT).show();
                     }
@@ -80,6 +85,9 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Khởi tạo MovieManager
+        movieManager = new MovieManager(this);
+
         // Khởi tạo các view từ layout
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
@@ -88,7 +96,15 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
 
         // Thiết lập RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        allMovies = getDummyMovies(); // TODO: Thay thế bằng nguồn dữ liệu thực tế
+        
+        // Load danh sách phim từ bộ nhớ
+        allMovies = movieManager.loadMovies();
+        if (allMovies.isEmpty()) {
+            // Nếu chưa có phim nào, thêm dữ liệu mẫu
+            allMovies = getDummyMovies();
+            movieManager.saveMovies(allMovies);
+        }
+        
         adapter = new MovieAdapter(allMovies, this, editMovieLauncher);
         recyclerView.setAdapter(adapter);
 
