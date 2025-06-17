@@ -124,10 +124,10 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
      */
     private List<Movie> getDummyMovies() {
         List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie(1, "Avengers: Endgame", "Phim siêu anh hùng", MovieGenre.ACTION, "2019", "Russo Brothers", "", 4.5));
-        movies.add(new Movie(2, "The Hangover", "Phim hài", MovieGenre.COMEDY, "2009", "Todd Phillips", "", 4.0));
-        movies.add(new Movie(3, "The Conjuring", "Phim kinh dị", MovieGenre.HORROR, "2013", "James Wan", "", 4.2));
-        movies.add(new Movie(4, "Titanic", "Phim tình cảm", MovieGenre.ROMANCE, "1997", "James Cameron", "", 4.8));
+        movies.add(new Movie("Avengers: Endgame", "Phim siêu anh hùng", MovieGenre.ACTION, "2019", "Russo Brothers", "", 4.5));
+        movies.add(new Movie("The Hangover", "Phim hài", MovieGenre.COMEDY, "2009", "Todd Phillips", "", 4.0));
+        movies.add(new Movie("The Conjuring", "Phim kinh dị", MovieGenre.HORROR, "2013", "James Wan", "", 4.2));
+        movies.add(new Movie("Titanic", "Phim tình cảm", MovieGenre.ROMANCE, "1997", "James Cameron", "", 4.8));
         return movies;
     }
 
