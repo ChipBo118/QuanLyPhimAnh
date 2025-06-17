@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +35,22 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
     private SearchView searchView;            // Ô tìm kiếm
     private ChipGroup genreChipGroup;         // Nhóm các chip thể loại phim
     private FloatingActionButton fabAddMovie; // Nút thêm phim mới
+
+    private final ActivityResultLauncher<Intent> addMovieLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Movie newMovie = result.getData().getParcelableExtra("new_movie");
+                    if (newMovie != null) {
+                        // Thêm phim mới vào đầu danh sách
+                        allMovies.add(0, newMovie);
+                        // Cập nhật RecyclerView
+                        adapter.updateMovies(allMovies);
+                        // Hiển thị thông báo
+                        Toast.makeText(this, "Đã thêm phim mới", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +98,8 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
 
         // Thiết lập nút thêm phim mới
         fabAddMovie.setOnClickListener(v -> {
-            // TODO: Mở màn hình thêm phim mới
-            Toast.makeText(this, "Thêm phim mới", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AddMovieActivity.class);
+            addMovieLauncher.launch(intent);
         });
     }
 

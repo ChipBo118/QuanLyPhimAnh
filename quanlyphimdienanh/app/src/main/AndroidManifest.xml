@@ -22,6 +22,11 @@
             android:name=".MovieDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".AddMovieActivity"
+            android:exported="false"
+            android:label="Thêm phim mới"
+            android:parentActivityName=".home" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
