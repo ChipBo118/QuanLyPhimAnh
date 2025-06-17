@@ -1,8 +1,11 @@
 package com.example.quanlyphimdienanh;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -36,6 +39,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
     private SearchView searchView;            // Ô tìm kiếm
     private ChipGroup genreChipGroup;         // Nhóm các chip thể loại phim
     private FloatingActionButton fabAddMovie; // Nút thêm phim mới
+    private Button buttonLogout; // Nút đăng xuất
     private MovieManager movieManager;
 
     private final ActivityResultLauncher<Intent> addMovieLauncher = registerForActivityResult(
@@ -93,6 +97,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
         searchView = findViewById(R.id.searchView);
         genreChipGroup = findViewById(R.id.genreChipGroup);
         fabAddMovie = findViewById(R.id.fabAddMovie);
+        buttonLogout = findViewById(R.id.buttonLogout);
 
         // Thiết lập RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -139,6 +144,21 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
         fabAddMovie.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddMovieActivity.class);
             addMovieLauncher.launch(intent);
+        });
+
+        // Thiết lập nút đăng xuất
+        buttonLogout.setOnClickListener(v -> {
+            // Xóa thông tin đăng nhập đã lưu
+            SharedPreferences sharedPreferences = getSharedPreferences("user_login_state", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear(); // Xóa tất cả dữ liệu đăng nhập
+            editor.apply();
+
+            // Chuyển về màn hình đăng nhập
+            Intent intent = new Intent(home.this, login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish(); // Đóng màn hình home
         });
     }
 
