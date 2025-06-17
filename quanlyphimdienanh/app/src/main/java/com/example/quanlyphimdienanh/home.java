@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlyphimdienanh.adapter.MovieAdapter;
 import com.example.quanlyphimdienanh.model.Movie;
+import com.example.quanlyphimdienanh.model.MovieGenre;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -67,8 +68,14 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
 
         // Thiết lập ChipGroup để lọc phim theo thể loại
         genreChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            String selectedGenre = getSelectedGenre();
-            filterMovies(searchView.getQuery().toString(), selectedGenre);
+            if (checkedId != View.NO_ID) {
+                Chip selectedChip = findViewById(checkedId);
+                String selectedGenre = selectedChip.getText().toString();
+                filterMovies(searchView.getQuery().toString(), selectedGenre);
+            } else {
+                // Nếu không có chip nào được chọn, hiển thị tất cả phim
+                filterMovies(searchView.getQuery().toString(), "Tất cả");
+            }
         });
 
         // Thiết lập nút thêm phim mới
@@ -94,15 +101,17 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
     /**
      * Lọc danh sách phim dựa trên từ khóa tìm kiếm và thể loại
      * @param query Từ khóa tìm kiếm
-     * @param genre Thể loại phim
+     * @param genreDisplayName Tên thể loại phim
      */
-    private void filterMovies(String query, String genre) {
+    private void filterMovies(String query, String genreDisplayName) {
         List<Movie> filteredMovies = allMovies.stream()
                 .filter(movie -> {
                     boolean matchesQuery = query.isEmpty() || 
                             movie.getTitle().toLowerCase().contains(query.toLowerCase());
-                    boolean matchesGenre = genre.equals("Tất cả") || 
-                            movie.getGenre().equals(genre);
+                    
+                    boolean matchesGenre = genreDisplayName.equals("Tất cả") || 
+                            movie.getGenreDisplayName().equals(genreDisplayName);
+                    
                     return matchesQuery && matchesGenre;
                 })
                 .collect(Collectors.toList());
@@ -115,10 +124,10 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
      */
     private List<Movie> getDummyMovies() {
         List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie(1, "Avengers: Endgame", "Phim siêu anh hùng", "Hành động", "2019", "Russo Brothers", "", 4.5));
-        movies.add(new Movie(2, "The Hangover", "Phim hài", "Hài", "2009", "Todd Phillips", "", 4.0));
-        movies.add(new Movie(3, "The Conjuring", "Phim kinh dị", "Kinh dị", "2013", "James Wan", "", 4.2));
-        movies.add(new Movie(4, "Titanic", "Phim tình cảm", "Tình cảm", "1997", "James Cameron", "", 4.8));
+        movies.add(new Movie(1, "Avengers: Endgame", "Phim siêu anh hùng", MovieGenre.ACTION, "2019", "Russo Brothers", "", 4.5));
+        movies.add(new Movie(2, "The Hangover", "Phim hài", MovieGenre.COMEDY, "2009", "Todd Phillips", "", 4.0));
+        movies.add(new Movie(3, "The Conjuring", "Phim kinh dị", MovieGenre.HORROR, "2013", "James Wan", "", 4.2));
+        movies.add(new Movie(4, "Titanic", "Phim tình cảm", MovieGenre.ROMANCE, "1997", "James Cameron", "", 4.8));
         return movies;
     }
 

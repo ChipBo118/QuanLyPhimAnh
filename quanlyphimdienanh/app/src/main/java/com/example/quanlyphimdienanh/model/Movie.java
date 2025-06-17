@@ -7,13 +7,13 @@ public class Movie implements Parcelable {
     private int id;
     private String title;
     private String description;
-    private String genre;
+    private MovieGenre genre;
     private String releaseDate;
     private String director;
     private String posterUrl;
     private double rating;
 
-    public Movie(int id, String title, String description, String genre, String releaseDate, String director, String posterUrl, double rating) {
+    public Movie(int id, String title, String description, MovieGenre genre, String releaseDate, String director, String posterUrl, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,7 +28,7 @@ public class Movie implements Parcelable {
         id = in.readInt();
         title = in.readString();
         description = in.readString();
-        genre = in.readString();
+        genre = MovieGenre.valueOf(in.readString());
         releaseDate = in.readString();
         director = in.readString();
         posterUrl = in.readString();
@@ -57,8 +57,10 @@ public class Movie implements Parcelable {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
+    public MovieGenre getGenre() { return genre; }
+    public void setGenre(MovieGenre genre) { this.genre = genre; }
+
+    public String getGenreDisplayName() { return genre.getDisplayName(); }
 
     public String getReleaseDate() { return releaseDate; }
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
@@ -82,7 +84,7 @@ public class Movie implements Parcelable {
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeString(genre);
+        dest.writeString(genre.name());
         dest.writeString(releaseDate);
         dest.writeString(director);
         dest.writeString(posterUrl);

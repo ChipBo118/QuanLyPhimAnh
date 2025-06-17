@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quanlyphimdienanh.R;
 import com.example.quanlyphimdienanh.model.Movie;
 
@@ -76,10 +77,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public void bind(Movie movie) {
             textViewTitle.setText(movie.getTitle());
-            textViewGenre.setText(movie.getGenre());
+            textViewGenre.setText(movie.getGenreDisplayName());
             textViewDirector.setText(movie.getDirector());
             ratingBar.setRating((float) movie.getRating());
-            // TODO: Load image using Glide or Picasso
+            
+            // Load ảnh poster nếu có URL
+            if (movie.getPosterUrl() != null && !movie.getPosterUrl().isEmpty()) {
+                Glide.with(itemView.getContext())
+                    .load(movie.getPosterUrl())
+                    .centerCrop()
+                    .into(imageViewPoster);
+            } else {
+                // Hiển thị ảnh mặc định nếu không có poster
+                imageViewPoster.setImageResource(R.drawable.default_movie_poster);
+            }
         }
     }
 } 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="180dp"
+    android:viewportWidth="120"
+    android:viewportHeight="180">
+    
+    <!-- Nền -->
+    <path
+        android:fillColor="#CCCCCC"
+        android:pathData="M0,0h120v180h-120z" />
+    
+    <!-- Icon phim -->
+    <path
+        android:fillColor="#666666"
+        android:pathData="M40,60h40v60h-40z" />
+    
+    <!-- Icon play -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,75l20,15l-20,15z" />
+</vector> 
