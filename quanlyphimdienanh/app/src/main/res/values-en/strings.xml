@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Management</string>
+    
+    <!-- Intro Screen -->
+    <string name="welcome_message">Welcome to Movie Management App</string>
+    <string name="change_language">Change Language</string>
+    <string name="current_language">Current Language: English</string>
+    <string name="home_page">Home Page</string>
+    <string name="login">Login</string>
+    
+    <!-- Main Screen -->
+    <string name="search_hint">Search movies...</string>
+    <string name="all_movies">All</string>
+    <string name="action">Action</string>
+    <string name="comedy">Comedy</string>
+    <string name="horror">Horror</string>
+    <string name="romance">Romance</string>
+    <string name="add_movie">Add Movie</string>
+    
+    <!-- Add/Edit Movie Screen -->
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_description">Description</string>
+    <string name="movie_genre">Movie Genre</string>
+    <string name="release_year">Release Year</string>
+    <string name="director">Director</string>
+    <string name="poster_url">Poster URL</string>
+    <string name="rating">Rating</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete_movie">Delete Movie</string>
+    <string name="back">Back</string>
+    <string name="add">Add Movie</string>
+    <string name="edit_movie">Edit Movie</string>
+    
+    <!-- Notifications -->
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="select_genre">Please select a movie genre</string>
+    <string name="movie_added">New movie added</string>
+    <string name="movie_updated">Movie information updated</string>
+    <string name="movie_deleted">Movie deleted</string>
+    <string name="delete_confirmation">Are you sure you want to delete this movie?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources> 

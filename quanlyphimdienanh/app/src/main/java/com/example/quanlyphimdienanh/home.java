@@ -50,7 +50,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                         allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
                         // Hiển thị thông báo
-                        Toast.makeText(this, "Đã thêm phim mới", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.movie_added), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -66,7 +66,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                         movieManager.updateMovie(position, updatedMovie);
                         allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
-                        Toast.makeText(this, "Đã cập nhật phim", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.movie_updated), Toast.LENGTH_SHORT).show();
                     }
                 } else if (result.getResultCode() == RESULT_FIRST_USER && result.getData() != null) {
                     // Xóa phim
@@ -75,7 +75,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                         movieManager.deleteMovie(position);
                         allMovies = movieManager.loadMovies();
                         adapter.updateMovies(allMovies);
-                        Toast.makeText(this, "Đã xóa phim", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.movie_deleted), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -131,7 +131,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                 filterMovies(searchView.getQuery().toString(), selectedGenre);
             } else {
                 // Nếu không có chip nào được chọn, hiển thị tất cả phim
-                filterMovies(searchView.getQuery().toString(), "Tất cả");
+                filterMovies(searchView.getQuery().toString(), getString(R.string.all_movies));
             }
         });
 
@@ -149,7 +149,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
     private String getSelectedGenre() {
         int selectedChipId = genreChipGroup.getCheckedChipId();
         if (selectedChipId == View.NO_ID) {
-            return "Tất cả";
+            return getString(R.string.all_movies);
         }
         Chip selectedChip = findViewById(selectedChipId);
         return selectedChip.getText().toString();
@@ -166,8 +166,8 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                     boolean matchesQuery = query.isEmpty() || 
                             movie.getTitle().toLowerCase().contains(query.toLowerCase());
                     
-                    boolean matchesGenre = genreDisplayName.equals("Tất cả") || 
-                            movie.getGenreDisplayName().equals(genreDisplayName);
+                    boolean matchesGenre = genreDisplayName.equals(getString(R.string.all_movies)) || 
+                            movie.getGenreDisplayName(this).equals(genreDisplayName);
                     
                     return matchesQuery && matchesGenre;
                 })

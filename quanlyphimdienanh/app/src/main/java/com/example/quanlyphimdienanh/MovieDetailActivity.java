@@ -49,9 +49,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Hiển thị thông tin
         textViewTitle.setText(movie.getTitle());
-        textViewGenre.setText("Thể loại: " + movie.getGenreDisplayName());
-        textViewDirector.setText("Đạo diễn: " + movie.getDirector());
-        textViewYear.setText("Năm phát hành: " + movie.getYear());
+        textViewGenre.setText(getString(R.string.movie_genre) + ": " + movie.getGenreDisplayName(this));
+        textViewDirector.setText(getString(R.string.director) + ": " + movie.getDirector());
+        textViewYear.setText(getString(R.string.release_year) + ": " + movie.getYear());
         textViewDescription.setText(movie.getDescription());
         ratingBar.setRating((float) movie.getRating());
 

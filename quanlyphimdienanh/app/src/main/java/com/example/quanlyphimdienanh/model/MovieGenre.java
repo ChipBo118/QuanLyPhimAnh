@@ -1,24 +1,33 @@
 package com.example.quanlyphimdienanh.model;
 
+import android.content.Context;
+
+import com.example.quanlyphimdienanh.R;
+
 public enum MovieGenre {
-    ACTION("Hành động"),
-    COMEDY("Hài"),
-    HORROR("Kinh dị"),
-    ROMANCE("Tình cảm");
+    ACTION,
+    COMEDY,
+    HORROR,
+    ROMANCE;
 
-    private final String displayName;
-
-    MovieGenre(String displayName) {
-        this.displayName = displayName;
+    public String getDisplayName(Context context) {
+        switch (this) {
+            case ACTION:
+                return context.getString(R.string.action);
+            case COMEDY:
+                return context.getString(R.string.comedy);
+            case HORROR:
+                return context.getString(R.string.horror);
+            case ROMANCE:
+                return context.getString(R.string.romance);
+            default:
+                return "";
+        }
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public static MovieGenre fromDisplayName(String displayName) {
+    public static MovieGenre fromDisplayName(Context context, String displayName) {
         for (MovieGenre genre : values()) {
-            if (genre.displayName.equals(displayName)) {
+            if (genre.getDisplayName(context).equals(displayName)) {
                 return genre;
             }
         }

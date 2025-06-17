@@ -100,7 +100,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             if (movie == null) return;
 
             movieTitle.setText(movie.getTitle());
-            movieGenre.setText(movie.getGenreDisplayName());
+            movieGenre.setText(movie.getGenreDisplayName(itemView.getContext()));
             movieYear.setText(movie.getYear());
             movieDirector.setText(movie.getDirector());
             movieRating.setRating((float) movie.getRating());

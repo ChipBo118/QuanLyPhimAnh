@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Tìm kiếm phim..." />
+        app:queryHint="@string/search_hint" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/genreChipGroup"
@@ -27,7 +27,7 @@
             android:id="@+id/chipAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tất cả"
+            android:text="@string/all_movies"
             android:checked="true"
             style="@style/Widget.MaterialComponents.Chip.Choice" />
 
@@ -35,28 +35,28 @@
             android:id="@+id/chipAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hành động"
+            android:text="@string/action"
             style="@style/Widget.MaterialComponents.Chip.Choice" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipComedy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hài"
+            android:text="@string/comedy"
             style="@style/Widget.MaterialComponents.Chip.Choice" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipHorror"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kinh dị"
+            android:text="@string/horror"
             style="@style/Widget.MaterialComponents.Chip.Choice" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipRomance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tình cảm"
+            android:text="@string/romance"
             style="@style/Widget.MaterialComponents.Chip.Choice" />
     </com.google.android.material.chip.ChipGroup>
 

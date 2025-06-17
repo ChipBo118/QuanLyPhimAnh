@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.quanlyphimdienanh.utils.LanguageManager;
 
 /**
  * Màn hình chính của ứng dụng
@@ -20,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     // Khai báo các thành phần UI
     private Button btnHome;    // Nút chuyển đến trang chủ
     private Button btnLogin;   // Nút chuyển đến trang đăng nhập
+    private LanguageManager languageManager;
+    private TextView textViewCurrentLanguage;
+    private Button buttonChangeLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +34,18 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Khởi tạo LanguageManager
+        languageManager = new LanguageManager(this);
+        languageManager.updateResources(languageManager.getCurrentLanguage()); // Áp dụng ngôn ngữ đã lưu
+
         // Khởi tạo các button từ layout
         btnHome = findViewById(R.id.home);
         btnLogin = findViewById(R.id.login);
+        textViewCurrentLanguage = findViewById(R.id.textViewCurrentLanguage);
+        buttonChangeLanguage = findViewById(R.id.buttonChangeLanguage);
+
+        // Cập nhật hiển thị ngôn ngữ hiện tại
+        updateLanguageDisplay();
 
         // Xử lý sự kiện click nút Trang chủ
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện nút chuyển đổi ngôn ngữ
+        buttonChangeLanguage.setOnClickListener(v -> {
+            languageManager.toggleLanguage();
+            recreate(); // Tạo lại activity để áp dụng ngôn ngữ mới
+        });
+
         // Xử lý edge-to-edge display
         // Điều chỉnh padding cho các thành phần UI để tránh bị che bởi thanh trạng thái
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -65,16 +86,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void updateLanguageDisplay() {
+        String currentLanguage = languageManager.getCurrentLanguage();
+        if (currentLanguage.equals("vi")) {
+            textViewCurrentLanguage.setText(getString(R.string.current_language));
+        } else {
+            textViewCurrentLanguage.setText(getString(R.string.current_language)); // Sẽ lấy từ values-en/strings.xml
+        }
+    }
+
     @Override
     public void onBackPressed() {
         // Hiển thị dialog xác nhận khi nhấn nút Back
         new android.app.AlertDialog.Builder(this)
-                .setTitle("Thoát ứng dụng")
-                .setMessage("Bạn có chắc chắn muốn thoát?")
-                .setPositiveButton("Có", (dialog, which) -> {
+                .setTitle(getString(R.string.app_name))
+                .setMessage(getString(R.string.delete_confirmation))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                     finish();
                 })
-                .setNegativeButton("Không", null)
+                .setNegativeButton(getString(R.string.no), null)
                 .show();
     }
 }

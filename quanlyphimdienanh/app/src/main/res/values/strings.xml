@@ -1,3 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">quanlyphimdienanh</string>
+    <string name="app_name">Quản Lý Phim Điện Ảnh</string>
+
+    <!-- Màn hình Intro -->
+    <string name="welcome_message">Chào mừng bạn đến với ứng dụng quản lý phim điện ảnh!</string>
+    <string name="change_language">Đổi ngôn ngữ</string>
+    <string name="current_language">Ngôn ngữ hiện tại: Tiếng Việt</string>
+    <string name="home_page">Trang chủ</string>
+    <string name="login">Đăng nhập</string>
+
+    <!-- Màn hình chính -->
+    <string name="search_hint">Tìm kiếm phim...</string>
+    <string name="all_movies">Tất cả</string>
+    <string name="action">Hành động</string>
+    <string name="comedy">Hài</string>
+    <string name="horror">Kinh dị</string>
+    <string name="romance">Tình cảm</string>
+    <string name="add_movie">Thêm phim</string>
+
+    <!-- Màn hình thêm/sửa phim -->
+    <string name="movie_title">Tên phim</string>
+    <string name="movie_description">Mô tả</string>
+    <string name="movie_genre">Thể loại phim</string>
+    <string name="release_year">Năm phát hành</string>
+    <string name="director">Đạo diễn</string>
+    <string name="poster_url">URL ảnh poster</string>
+    <string name="rating">Đánh giá</string>
+    <string name="save_changes">Lưu thay đổi</string>
+    <string name="delete_movie">Xóa phim</string>
+    <string name="back">Quay lại</string>
+    <string name="add">Thêm phim</string>
+    <string name="edit_movie">Sửa phim</string>
+
+    <!-- Thông báo -->
+    <string name="fill_all_fields">Vui lòng điền đầy đủ thông tin</string>
+    <string name="select_genre">Vui lòng chọn thể loại phim</string>
+    <string name="movie_added">Đã thêm phim mới</string>
+    <string name="movie_updated">Đã cập nhật thông tin phim</string>
+    <string name="movie_deleted">Đã xóa phim</string>
+    <string name="delete_confirmation">Bạn có chắc chắn muốn xóa phim này?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
 </resources>

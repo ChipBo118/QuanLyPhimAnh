@@ -1,5 +1,6 @@
 package com.example.quanlyphimdienanh.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -66,19 +67,8 @@ public class Movie implements Parcelable {
     public double getRating() { return rating; }
     public void setRating(double rating) { this.rating = rating; }
 
-    public String getGenreDisplayName() {
-        switch (genre) {
-            case ACTION:
-                return "Hành động";
-            case COMEDY:
-                return "Hài";
-            case HORROR:
-                return "Kinh dị";
-            case ROMANCE:
-                return "Tình cảm";
-            default:
-                return "";
-        }
+    public String getGenreDisplayName(Context context) {
+        return genre.getDisplayName(context);
     }
 
     @Override

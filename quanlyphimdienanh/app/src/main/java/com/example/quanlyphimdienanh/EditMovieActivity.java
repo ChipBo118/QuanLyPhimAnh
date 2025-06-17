@@ -101,14 +101,14 @@ public class EditMovieActivity extends AppCompatActivity {
 
         // Kiểm tra dữ liệu
         if (title.isEmpty() || description.isEmpty() || year.isEmpty() || director.isEmpty()) {
-            Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Lấy thể loại phim được chọn
         MovieGenre genre = getSelectedGenre();
         if (genre == null) {
-            Toast.makeText(this, "Vui lòng chọn thể loại phim", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.select_genre), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -142,16 +142,16 @@ public class EditMovieActivity extends AppCompatActivity {
 
     private void showDeleteConfirmationDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Xóa phim")
-                .setMessage("Bạn có chắc chắn muốn xóa phim này?")
-                .setPositiveButton("Xóa", (dialog, which) -> {
+                .setTitle(getString(R.string.delete_movie))
+                .setMessage(getString(R.string.delete_confirmation))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                     // Trả về kết quả xóa
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra(EXTRA_POSITION, position);
                     setResult(RESULT_FIRST_USER, resultIntent);
                     finish();
                 })
-                .setNegativeButton("Hủy", null)
+                .setNegativeButton(getString(R.string.no), null)
                 .show();
     }
 } 

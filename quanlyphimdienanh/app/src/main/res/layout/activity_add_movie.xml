@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="Tên phim">
+            android:hint="@string/movie_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextTitle"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="Mô tả">
+            android:hint="@string/movie_description">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDescription"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Thể loại phim"
+            android:text="@string/movie_genre"
             android:textStyle="bold" />
 
         <RadioGroup
@@ -55,32 +55,32 @@
                 android:id="@+id/radioAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hành động" />
+                android:text="@string/action" />
 
             <RadioButton
                 android:id="@+id/radioComedy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hài" />
+                android:text="@string/comedy" />
 
             <RadioButton
                 android:id="@+id/radioHorror"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kinh dị" />
+                android:text="@string/horror" />
 
             <RadioButton
                 android:id="@+id/radioRomance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tình cảm" />
+                android:text="@string/romance" />
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="Năm phát hành">
+            android:hint="@string/release_year">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextReleaseDate"
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="Đạo diễn">
+            android:hint="@string/director">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDirector"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="URL ảnh poster">
+            android:hint="@string/poster_url">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPosterUrl"
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Đánh giá"
+            android:text="@string/rating"
             android:textStyle="bold" />
 
         <RatingBar
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Quay lại" />
+                android:text="@string/back" />
 
             <Button
                 android:id="@+id/buttonAdd"
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Thêm phim" />
+                android:text="@string/add" />
         </LinearLayout>
 
     </LinearLayout>

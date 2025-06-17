@@ -58,14 +58,14 @@ public class AddMovieActivity extends AppCompatActivity {
 
         // Kiểm tra dữ liệu nhập vào
         if (title.isEmpty() || description.isEmpty() || releaseDate.isEmpty() || director.isEmpty()) {
-            Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Lấy thể loại phim được chọn
         MovieGenre genre = getSelectedGenre();
         if (genre == null) {
-            Toast.makeText(this, "Vui lòng chọn thể loại phim", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.select_genre), Toast.LENGTH_SHORT).show();
             return;
         }
 
