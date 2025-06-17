@@ -133,25 +133,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
             <Button
-                android:id="@+id/buttonDelete"
+                android:id="@+id/buttonBack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Xóa phim"
+                android:text="Quay lại"
                 android:textColor="@android:color/white"
-                app:backgroundTint="@android:color/holo_red_dark" />
+                app:backgroundTint="@android:color/darker_gray" />
 
             <Button
                 android:id="@+id/buttonSave"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Lưu thay đổi" />
+                android:text="Lưu thay đổi"
+                android:textColor="@android:color/white"
+                app:backgroundTint="@android:color/holo_blue_dark" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Xóa phim"
+                android:textColor="@android:color/white"
+                app:backgroundTint="@android:color/holo_red_dark" />
         </LinearLayout>
 
     </LinearLayout>

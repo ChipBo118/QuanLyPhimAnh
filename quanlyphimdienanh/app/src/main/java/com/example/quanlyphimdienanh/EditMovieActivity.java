@@ -28,6 +28,7 @@ public class EditMovieActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button buttonSave;
     private Button buttonDelete;
+    private Button buttonBack;
 
     private Movie movie;
     private int position;
@@ -47,6 +48,7 @@ public class EditMovieActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         buttonSave = findViewById(R.id.buttonSave);
         buttonDelete = findViewById(R.id.buttonDelete);
+        buttonBack = findViewById(R.id.buttonBack);
 
         // Lấy thông tin phim từ intent
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
@@ -83,6 +85,9 @@ public class EditMovieActivity extends AppCompatActivity {
 
         // Xử lý sự kiện nút Xóa
         buttonDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
+
+        // Xử lý sự kiện nút Quay lại
+        buttonBack.setOnClickListener(v -> finish());
     }
 
     private void saveMovie() {

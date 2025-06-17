@@ -22,6 +22,7 @@ public class AddMovieActivity extends AppCompatActivity {
     private TextInputEditText editTextPosterUrl;
     private RatingBar ratingBar;
     private Button buttonAdd;
+    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,13 @@ public class AddMovieActivity extends AppCompatActivity {
         editTextPosterUrl = findViewById(R.id.editTextPosterUrl);
         ratingBar = findViewById(R.id.ratingBar);
         buttonAdd = findViewById(R.id.buttonAdd);
+        buttonBack = findViewById(R.id.buttonBack);
 
         // Thiết lập sự kiện click cho nút thêm phim
         buttonAdd.setOnClickListener(v -> addMovie());
+
+        // Thiết lập sự kiện click cho nút quay lại
+        buttonBack.setOnClickListener(v -> finish());
     }
 
     private void addMovie() {
