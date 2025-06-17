@@ -52,6 +52,29 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
                 }
             });
 
+    private final ActivityResultLauncher<Intent> editMovieLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    // Cập nhật phim
+                    Movie updatedMovie = result.getData().getParcelableExtra(EditMovieActivity.EXTRA_MOVIE);
+                    int position = result.getData().getIntExtra(EditMovieActivity.EXTRA_POSITION, -1);
+                    if (updatedMovie != null && position != -1) {
+                        allMovies.set(position, updatedMovie);
+                        adapter.updateMovies(allMovies);
+                        Toast.makeText(this, "Đã cập nhật phim", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (result.getResultCode() == RESULT_FIRST_USER && result.getData() != null) {
+                    // Xóa phim
+                    int position = result.getData().getIntExtra(EditMovieActivity.EXTRA_POSITION, -1);
+                    if (position != -1) {
+                        allMovies.remove(position);
+                        adapter.updateMovies(allMovies);
+                        Toast.makeText(this, "Đã xóa phim", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +89,7 @@ public class home extends AppCompatActivity implements MovieAdapter.OnMovieClick
         // Thiết lập RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         allMovies = getDummyMovies(); // TODO: Thay thế bằng nguồn dữ liệu thực tế
-        adapter = new MovieAdapter(allMovies, this);
+        adapter = new MovieAdapter(allMovies, this, editMovieLauncher);
         recyclerView.setAdapter(adapter);
 
         // Thiết lập SearchView để tìm kiếm phim

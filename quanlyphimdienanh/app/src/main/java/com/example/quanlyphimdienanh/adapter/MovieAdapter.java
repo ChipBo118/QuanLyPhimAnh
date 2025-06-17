@@ -1,16 +1,20 @@
 package com.example.quanlyphimdienanh.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.quanlyphimdienanh.EditMovieActivity;
 import com.example.quanlyphimdienanh.R;
 import com.example.quanlyphimdienanh.model.Movie;
 
@@ -18,15 +22,17 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private List<Movie> movies;
-    private OnMovieClickListener listener;
+    private final OnMovieClickListener listener;
+    private final ActivityResultLauncher<Intent> editMovieLauncher;
 
     public interface OnMovieClickListener {
         void onMovieClick(Movie movie);
     }
 
-    public MovieAdapter(List<Movie> movies, OnMovieClickListener listener) {
+    public MovieAdapter(List<Movie> movies, OnMovieClickListener listener, ActivityResultLauncher<Intent> editMovieLauncher) {
         this.movies = movies;
         this.listener = listener;
+        this.editMovieLauncher = editMovieLauncher;
     }
 
     @NonNull
@@ -44,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return movies != null ? movies.size() : 0;
     }
 
     public void updateMovies(List<Movie> newMovies) {
@@ -53,43 +59,61 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageViewPoster;
-        private TextView textViewTitle;
-        private TextView textViewGenre;
-        private TextView textViewDirector;
-        private RatingBar ratingBar;
+        private final ImageView moviePoster;
+        private final TextView movieTitle;
+        private final TextView movieGenre;
+        private final TextView movieYear;
+        private final TextView movieDirector;
+        private final RatingBar movieRating;
+        private final ImageButton btnEdit;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewPoster = itemView.findViewById(R.id.imageViewPoster);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewGenre = itemView.findViewById(R.id.textViewGenre);
-            textViewDirector = itemView.findViewById(R.id.textViewDirector);
-            ratingBar = itemView.findViewById(R.id.ratingBar);
+            moviePoster = itemView.findViewById(R.id.moviePoster);
+            movieTitle = itemView.findViewById(R.id.movieTitle);
+            movieGenre = itemView.findViewById(R.id.movieGenre);
+            movieYear = itemView.findViewById(R.id.movieYear);
+            movieDirector = itemView.findViewById(R.id.movieDirector);
+            movieRating = itemView.findViewById(R.id.movieRating);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onMovieClick(movies.get(position));
+                }
+            });
+
+            btnEdit.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && editMovieLauncher != null) {
+                    Movie movie = movies.get(position);
+                    Intent intent = new Intent(itemView.getContext(), EditMovieActivity.class);
+                    intent.putExtra(EditMovieActivity.EXTRA_MOVIE, movie);
+                    intent.putExtra(EditMovieActivity.EXTRA_POSITION, position);
+                    editMovieLauncher.launch(intent);
                 }
             });
         }
 
         public void bind(Movie movie) {
-            textViewTitle.setText(movie.getTitle());
-            textViewGenre.setText(movie.getGenreDisplayName());
-            textViewDirector.setText(movie.getDirector());
-            ratingBar.setRating((float) movie.getRating());
-            
-            // Load ảnh poster nếu có URL
+            if (movie == null) return;
+
+            movieTitle.setText(movie.getTitle());
+            movieGenre.setText(movie.getGenreDisplayName());
+            movieYear.setText(movie.getYear());
+            movieDirector.setText(movie.getDirector());
+            movieRating.setRating((float) movie.getRating());
+
+            // Load poster image using Glide
             if (movie.getPosterUrl() != null && !movie.getPosterUrl().isEmpty()) {
                 Glide.with(itemView.getContext())
-                    .load(movie.getPosterUrl())
-                    .centerCrop()
-                    .into(imageViewPoster);
+                        .load(movie.getPosterUrl())
+                        .placeholder(R.drawable.default_movie_poster)
+                        .error(R.drawable.default_movie_poster)
+                        .into(moviePoster);
             } else {
-                // Hiển thị ảnh mặc định nếu không có poster
-                imageViewPoster.setImageResource(R.drawable.default_movie_poster);
+                moviePoster.setImageResource(R.drawable.default_movie_poster);
             }
         }
     }

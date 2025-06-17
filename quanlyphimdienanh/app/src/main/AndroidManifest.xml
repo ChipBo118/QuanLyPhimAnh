@@ -27,6 +27,11 @@
             android:label="Thêm phim mới"
             android:parentActivityName=".home" />
         <activity
+            android:name=".EditMovieActivity"
+            android:exported="false"
+            android:label="Sửa phim"
+            android:parentActivityName=".home" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

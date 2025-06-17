@@ -7,16 +7,16 @@ public class Movie implements Parcelable {
     private String title;
     private String description;
     private MovieGenre genre;
-    private String releaseDate;
+    private String year;
     private String director;
     private String posterUrl;
     private double rating;
 
-    public Movie(String title, String description, MovieGenre genre, String releaseDate, String director, String posterUrl, double rating) {
+    public Movie(String title, String description, MovieGenre genre, String year, String director, String posterUrl, double rating) {
         this.title = title;
         this.description = description;
         this.genre = genre;
-        this.releaseDate = releaseDate;
+        this.year = year;
         this.director = director;
         this.posterUrl = posterUrl;
         this.rating = rating;
@@ -26,7 +26,7 @@ public class Movie implements Parcelable {
         title = in.readString();
         description = in.readString();
         genre = MovieGenre.valueOf(in.readString());
-        releaseDate = in.readString();
+        year = in.readString();
         director = in.readString();
         posterUrl = in.readString();
         rating = in.readDouble();
@@ -54,10 +54,8 @@ public class Movie implements Parcelable {
     public MovieGenre getGenre() { return genre; }
     public void setGenre(MovieGenre genre) { this.genre = genre; }
 
-    public String getGenreDisplayName() { return genre.getDisplayName(); }
-
-    public String getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
+    public String getYear() { return year; }
+    public void setYear(String year) { this.year = year; }
 
     public String getDirector() { return director; }
     public void setDirector(String director) { this.director = director; }
@@ -67,6 +65,21 @@ public class Movie implements Parcelable {
 
     public double getRating() { return rating; }
     public void setRating(double rating) { this.rating = rating; }
+
+    public String getGenreDisplayName() {
+        switch (genre) {
+            case ACTION:
+                return "Hành động";
+            case COMEDY:
+                return "Hài";
+            case HORROR:
+                return "Kinh dị";
+            case ROMANCE:
+                return "Tình cảm";
+            default:
+                return "";
+        }
+    }
 
     @Override
     public int describeContents() {
@@ -78,7 +91,7 @@ public class Movie implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(genre.name());
-        dest.writeString(releaseDate);
+        dest.writeString(year);
         dest.writeString(director);
         dest.writeString(posterUrl);
         dest.writeDouble(rating);

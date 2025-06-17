@@ -39,7 +39,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         TextView textViewGenre = findViewById(R.id.textViewGenre);
         TextView textViewDirector = findViewById(R.id.textViewDirector);
-        TextView textViewReleaseDate = findViewById(R.id.textViewReleaseDate);
+        TextView textViewYear = findViewById(R.id.textViewReleaseDate);
         TextView textViewDescription = findViewById(R.id.textViewDescription);
         RatingBar ratingBar = findViewById(R.id.ratingBar);
         FloatingActionButton fabEdit = findViewById(R.id.fabEdit);
@@ -49,18 +49,21 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Hiển thị thông tin
         textViewTitle.setText(movie.getTitle());
-        textViewGenre.setText("Thể loại: " + movie.getGenre());
+        textViewGenre.setText("Thể loại: " + movie.getGenreDisplayName());
         textViewDirector.setText("Đạo diễn: " + movie.getDirector());
-        textViewReleaseDate.setText("Ngày phát hành: " + movie.getReleaseDate());
+        textViewYear.setText("Năm phát hành: " + movie.getYear());
         textViewDescription.setText(movie.getDescription());
         ratingBar.setRating((float) movie.getRating());
 
         // Load ảnh poster
-        if (!movie.getPosterUrl().isEmpty()) {
+        if (movie.getPosterUrl() != null && !movie.getPosterUrl().isEmpty()) {
             Glide.with(this)
                     .load(movie.getPosterUrl())
-                    .centerCrop()
+                    .placeholder(R.drawable.default_movie_poster)
+                    .error(R.drawable.default_movie_poster)
                     .into(imageViewPoster);
+        } else {
+            imageViewPoster.setImageResource(R.drawable.default_movie_poster);
         }
 
         // Xử lý sự kiện click nút Edit
