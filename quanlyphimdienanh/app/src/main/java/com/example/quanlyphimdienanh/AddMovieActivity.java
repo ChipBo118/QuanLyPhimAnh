@@ -1,13 +1,18 @@
 package com.example.quanlyphimdienanh;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 
 import com.example.quanlyphimdienanh.model.Movie;
 import com.example.quanlyphimdienanh.model.MovieGenre;
@@ -23,6 +28,10 @@ public class AddMovieActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button buttonAdd;
     private Button buttonBack;
+    private static final int REQUEST_CODE_PICK_IMAGE = 1001;
+    private ImageView imageViewPoster;
+    private Button buttonSelectImage;
+    private Uri selectedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +48,17 @@ public class AddMovieActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         buttonAdd = findViewById(R.id.buttonAdd);
         buttonBack = findViewById(R.id.buttonBack);
+        imageViewPoster = findViewById(R.id.imageViewPoster);
+        buttonSelectImage = findViewById(R.id.buttonSelectImage);
 
         // Thiết lập sự kiện click cho nút thêm phim
         buttonAdd.setOnClickListener(v -> addMovie());
 
         // Thiết lập sự kiện click cho nút quay lại
         buttonBack.setOnClickListener(v -> finish());
+
+        // Thiết lập sự kiện click cho nút chọn ảnh
+        buttonSelectImage.setOnClickListener(v -> openGallery());
     }
 
     private void addMovie() {
@@ -53,7 +67,7 @@ public class AddMovieActivity extends AppCompatActivity {
         String description = editTextDescription.getText().toString().trim();
         String releaseDate = editTextReleaseDate.getText().toString().trim();
         String director = editTextDirector.getText().toString().trim();
-        String posterUrl = editTextPosterUrl.getText().toString().trim();
+        String posterUriString = (selectedImageUri != null) ? selectedImageUri.toString() : "";
         float rating = ratingBar.getRating();
 
         // Kiểm tra dữ liệu nhập vào
@@ -70,7 +84,7 @@ public class AddMovieActivity extends AppCompatActivity {
         }
 
         // Tạo đối tượng phim mới
-        Movie newMovie = new Movie(title, description, genre, releaseDate, director, posterUrl, rating);
+        Movie newMovie = new Movie(title, description, genre, releaseDate, director, posterUriString, rating);
 
         // Trả về kết quả cho màn hình chính
         Intent resultIntent = new Intent();
@@ -91,5 +105,22 @@ public class AddMovieActivity extends AppCompatActivity {
             return MovieGenre.ROMANCE;
         }
         return null;
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                imageViewPoster.setImageURI(selectedImageUri);
+            }
+        }
     }
 } 

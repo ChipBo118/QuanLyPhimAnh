@@ -1,75 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#C8DEF8"
-    android:padding="16dp"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="#C8DEF8">
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/text_title_register"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Đăng ký tài khoản mới"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#2B0E66"
         android:gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"/>
+        app:layout_constraintTop_toBottomOf="@id/button_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/label_register_username"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:text="Tài khoản:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/text_title_register"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"/>
 
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Tài khoản:"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <EditText
-            android:id="@+id/edit_register_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tên đăng nhập"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edit_register_username"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:hint="Tên đăng nhập"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/label_register_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/label_register_username"
+        android:layout_marginEnd="32dp"/>
 
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Mật khẩu:"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/label_register_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mật khẩu:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/label_register_username"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"/>
 
-        <EditText
-            android:id="@+id/edit_register_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:textSize="20sp"
-            android:inputType="textPassword"/>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edit_register_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Mật khẩu"
+        android:textSize="18sp"
+        android:inputType="textPassword"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/label_register_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/label_register_password"
+        android:layout_marginEnd="32dp"/>
 
     <Button
         android:id="@+id/button_register"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Đăng ký"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"/>
+        app:layout_constraintTop_toBottomOf="@id/edit_register_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
 
     <TextView
         android:id="@+id/text_go_to_login"
@@ -79,9 +100,11 @@
         android:textColor="#2B0E66"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/button_register"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:clickable="true"
         android:focusable="true"/>
 
-</LinearLayout> 
+</androidx.constraintlayout.widget.ConstraintLayout> 

@@ -41,4 +41,6 @@
     <string name="delete_confirmation">Bạn có chắc chắn muốn xóa phim này?</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
+
+    <string name="back_button">Quay lại</string>
 </resources>

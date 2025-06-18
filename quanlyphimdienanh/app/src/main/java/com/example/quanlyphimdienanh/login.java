@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class login extends AppCompatActivity {
     private EditText editPassword;
     private Button buttonLogin;
     private TextView textRegisterNow;
+    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,17 @@ public class login extends AppCompatActivity {
         editPassword = findViewById(R.id.edit_password);
         buttonLogin = findViewById(R.id.button_login);
         textRegisterNow = findViewById(R.id.text_register_now);
+        buttonBack = findViewById(R.id.button_back);
 
         buttonLogin.setOnClickListener(v -> loginUser());
         textRegisterNow.setOnClickListener(v -> {
             Intent intent = new Intent(login.this, RegisterActivity.class);
             startActivity(intent);
+        });
+        
+        buttonBack.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
 
@@ -59,6 +67,9 @@ public class login extends AppCompatActivity {
 
         if (savedPassword != null && savedPassword.equals(password)) {
             Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+            // Lưu trạng thái đăng nhập
+            SharedPreferences loginPrefs = getSharedPreferences("login_state", Context.MODE_PRIVATE);
+            loginPrefs.edit().putString("logged_in_user", username).apply();
             // Chuyển hướng đến màn hình chính hoặc màn hình tiếp theo
             Intent intent = new Intent(login.this, home.class); // Ví dụ: chuyển đến màn hình home
             startActivity(intent);

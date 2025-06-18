@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editRegisterPassword;
     private Button buttonRegister;
     private TextView textGoToLogin;
+    private Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,15 @@ public class RegisterActivity extends AppCompatActivity {
         editRegisterPassword = findViewById(R.id.edit_register_password);
         buttonRegister = findViewById(R.id.button_register);
         textGoToLogin = findViewById(R.id.text_go_to_login);
+        buttonBack = findViewById(R.id.button_back);
 
         buttonRegister.setOnClickListener(v -> registerUser());
-        textGoToLogin.setOnClickListener(v -> finish()); // Quay lại màn hình đăng nhập
+        textGoToLogin.setOnClickListener(v -> finish());
+        
+        buttonBack.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        });
     }
 
     private void registerUser() {

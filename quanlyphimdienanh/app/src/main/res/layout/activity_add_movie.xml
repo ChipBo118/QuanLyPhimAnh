@@ -102,18 +102,23 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageViewPoster"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="@string/poster_url">
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_movie_poster" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextPosterUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textUri" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/buttonSelectImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn ảnh poster"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_width="wrap_content"

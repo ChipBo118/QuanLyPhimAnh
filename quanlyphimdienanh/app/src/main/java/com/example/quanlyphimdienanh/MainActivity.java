@@ -1,6 +1,7 @@
 package com.example.quanlyphimdienanh;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,6 @@ import com.example.quanlyphimdienanh.utils.LanguageManager;
  */
 public class MainActivity extends AppCompatActivity {
     // Khai báo các thành phần UI
-    private Button btnHome;    // Nút chuyển đến trang chủ
     private Button btnLogin;   // Nút chuyển đến trang đăng nhập
     private LanguageManager languageManager;
     private TextView textViewCurrentLanguage;
@@ -30,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Kiểm tra trạng thái đăng nhập
+        SharedPreferences loginPrefs = getSharedPreferences("login_state", MODE_PRIVATE);
+        String loggedInUser = loginPrefs.getString("logged_in_user", null);
+        if (loggedInUser != null) {
+            // Đã đăng nhập, chuyển thẳng vào Home
+            Intent intent = new Intent(MainActivity.this, home.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         // Bật chế độ hiển thị edge-to-edge
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -39,25 +49,12 @@ public class MainActivity extends AppCompatActivity {
         languageManager.updateResources(languageManager.getCurrentLanguage()); // Áp dụng ngôn ngữ đã lưu
 
         // Khởi tạo các button từ layout
-        btnHome = findViewById(R.id.home);
         btnLogin = findViewById(R.id.login);
         textViewCurrentLanguage = findViewById(R.id.textViewCurrentLanguage);
         buttonChangeLanguage = findViewById(R.id.buttonChangeLanguage);
 
         // Cập nhật hiển thị ngôn ngữ hiện tại
         updateLanguageDisplay();
-
-        // Xử lý sự kiện click nút Trang chủ
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển đến màn hình Home
-                Intent intent = new Intent(MainActivity.this, home.class);
-                startActivity(intent);
-                // Thêm animation khi chuyển màn hình
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
 
         // Xử lý sự kiện click nút Đăng nhập
         btnLogin.setOnClickListener(new View.OnClickListener() {
